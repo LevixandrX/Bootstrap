@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <!-- Обязательные метатеги -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <title>Подробнее о животном</title>
+  <style>
+    html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Модальное окно */
+  .modal-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-footer a {
+    margin: 5px 0;
+    text-decoration: none;
+  }
+
+  /* Логотип */
+  .logo-img {
+    height: 50px;
+    width: auto;
+  }
+
+  .navbar-brand span {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  /* Поле поиска */
+  form .form-control {
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: #333;
+    background-color: #f8f9fa;
+  }
+
+  form .form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  /* Кнопка поиска */
+  form .btn {
+    font-weight: bold;
+    border: 1px solid #fff;
+    background-color: #007bff;
+    color: #fff;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    margin-left: 10px;
+    display: block;
+    width: auto;
+    margin: 10px auto;
+  }
+
+  form .btn:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+
+  footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  footer h5 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  footer a {
+    color: white;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: #ffc107;
+  }
+
+  footer p {
+    font-size: 1rem;
+  }
+
+  datalist option {
+    color: #333;
+    background-color: #f8f9fa;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+
+  .navbar a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .navbar a:hover {
+    color: #007bff;
+  }
+
+    .animal-detail-card {
+      max-width: 800px;
+      margin: 20px auto;
+      margin-bottom: 70px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .animal-detail-card img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 20px;
+    }
+
+    .animal-detail-card h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #007bff;
+    }
+
+    .animal-detail-card p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    .animal-detail-card ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .animal-detail-card ul li {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #333;
+      border-bottom: 1px dashed #ddd;
+      padding-bottom: 8px;
+    }
+
+    .animal-detail-card ul li:last-child {
+      border-bottom: none;
+    }
+
+    .animal-detail-card .btn {
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 20px;
+      padding: 10px 20px;
+      text-align: center;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .animal-detail-card .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .animal-detail-card .animal-description {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-gradient shadow py-3">
+          <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+              <img src="img/logo.png" class="logo-img me-2 rounded-3" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" href="index.html">Главная</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="profile.html" data-bs-toggle="modal" data-bs-target="#loginModal">Личный кабинет</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="registration.html">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="add_pet.html">Добавить объявление</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="search.html">Поиск по объявлениям</a>
+                </li>
+              </ul>
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" list="pets" placeholder="Поиск" aria-label="Search">
+                <button class="btn btn-outline-light">Поиск</button>
+                <datalist id="pets">
+                  <option value="Кошка">
+                  <option value="Собака">
+                  <option value="Корова">
+                  <option value="Крокодил">
+                  <option value="Сова">
+                </datalist>
+              </form>
+            </div>
+          </div>
+        </nav>  
+      </header>
+      
+      <!-- Модальное окно -->
+      <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="loginModalLabel">Вход</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <form id="loginForm">
+                          <div class="mb-3">
+                              <label for="loginInput" class="form-label"><i class="bi bi-person"></i> Логин</label>
+                              <input type="text" class="form-control" id="loginInput" placeholder="Введите логин">
+                              <div class="invalid-feedback">Логин должен содержать только латинские буквы и цифры.</div>
+                            </div>
+                            <div class="mb-3">
+                              <label for="passwordInput" class="form-label"><i class="bi bi-lock"></i> Пароль</label>
+                              <input type="password" class="form-control" id="passwordInput" placeholder="Введите пароль">
+                              <div class="invalid-feedback">Пароль должен содержать только латинские буквы и цифры.</div>
+                            </div>                      
+                          <button type="submit" class="btn btn-primary w-100" id="loginButton">Войти</button>
+                      </form>
+                  </div>            
+                  <div class="modal-footer">
+                      <a href="registration.html">Регистрация</a>
+                      <a href="forgot_login.html">Забыли логин?</a>
+                      <a href="forgot_password.html">Забыли пароль?</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  <h1 class="text-center mt-5">Подробнее о найденном животном</h1>
+
+  <main id="animal-detail" class="d-flex justify-content-center">
+    <!-- Здесь будет отображена информация о животном -->
+  </main>
+
+  <footer class="bg-primary text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="mb-3">GET PET BACK</h5>
+          <p>Поиск пропавших животных и помощь в их возвращении домой.</p>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex justify-content-end">
+            <ul class="list-unstyled">
+              <li><a href="index.html" class="text-white text-decoration-none">Главная</a></li>
+              <li><a href="about.html" class="text-white text-decoration-none">О нас</a></li>
+              <li><a href="contact.html" class="text-white text-decoration-none">Контакты</a></li>
+              <li><a href="privacy.html" class="text-white text-decoration-none">Политика конфиденциальности</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p>&copy; 2024 GET PET BACK. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const animals = [
+  {
+    id: 1,
+    name: "Собака",
+    image: "img/dog1.png",
+    description: "Собака белая с черными пятнами, потерянная в районе Красногвардейского парка. Она была любящей и преданной, всегда рядом с хозяевами. Последний раз ее видели на прогулке, но она убежала, заметив что-то вдалеке. Она обладает отличным обонянием и может быть очень энергичной, когда играет на свежем воздухе. Может проявлять осторожность к незнакомым людям, но при этом хорошо ладит с детьми и другими собаками.",
+    details: [
+      "Рост: 50 см",
+      "Вес: 15 кг",
+      "Особые приметы: зеленый ошейник с номером телефона владельца. Пятна на теле белого и черного цвета.",
+      "Характер: дружелюбная и игривая, но может быть настороженной с незнакомыми людьми."
+    ]
+  },
+  {
+    id: 2,
+    name: "Мышь",
+    image: "img/rat1.png",
+    description: "Маленькая серая мышь, найденная в Центральном районе около магазина. Она была очень пугливой, часто пряталась в уголках и между коробками. Несмотря на свою малую величину, мышь достаточно сообразительная и умеет избегать опасности, перемещаясь быстро и скрытно. Иногда она пыталась подходить к людям в поисках еды, но быстро убегала при малейшем шуме.",
+    details: [
+      "Рост: 8 см",
+      "Вес: 200 г",
+      "Особые приметы: длинный хвост, серый окрас шерсти.",
+      "Характер: очень пуглива, но при этом любознательная."
+    ]
+  },
+  {
+    id: 3,
+    name: "Горилла",
+    image: "img/gorilla.png",
+    description: "Горилла, найденная в Красногвардейском районе недалеко от зоопарка. Это крупное существо с мощным телосложением и крепкими лапами. Она была в хорошем физическом состоянии, но по какой-то причине оказалась далеко от своего привычного места обитания. Горилла была спокойной, но достаточно настороженной, внимательно наблюдая за всеми, кто приближался. Ее внимание было направлено на людей и на окружающую природу. Она скорее избегала конфликтов, чем искала их.",
+    details: [
+      "Рост: 180 см",
+      "Вес: 200 кг",
+      "Особые приметы: небольшой шрам на лапе, возможный след от предыдущей травмы.",
+      "Характер: спокойная и уравновешенная, но настороженная при контакте с незнакомыми людьми."
+    ]
+  },
+  {
+    id: 4,
+    name: "Кот",
+    image: "img/cat1.png",
+    description: "Серый кот с белой грудкой, найденный в Московском районе у жилого дома. Он был ласковым, но независимым животным. Кот часто гулял по соседним дворам, но в последнее время начал возвращаться в одну и ту же точку. Он был замечен рядом с мусорными баками, где искал еду. Несмотря на свою независимость, кот был очень привязан к своему дому и его хозяевам, которые любили его за спокойный характер и яркие голубые глаза.",
+    details: [
+      "Рост: 30 см",
+      "Вес: 4 кг",
+      "Особые приметы: голубые глаза, белая грудка и лапки.",
+      "Характер: независимый, но ласковый, особенно по отношению к своим хозяевам."
+    ]
+  },
+  {
+    id: 5,
+    name: "Птица",
+    image: "img/bird1.png",
+    description: "Птица с ярким оперением, найденная в Приморском районе возле школы. Ее оперение включает в себя яркие красные и синие оттенки, которые выделяются среди других птиц. Она была замечена на деревьях, где часто пела свою мелодичную песню. Птица была дружелюбной, подходила к людям, но была очень осторожной. Возможно, она потеряла ориентацию и не смогла вернуться в привычное место обитания.",
+    details: [
+      "Рост: 20 см",
+      "Вес: 1 кг",
+      "Особые приметы: красный гребень и яркое оперение.",
+      "Характер: активная, с ярким характером и мелодичным голосом."
+    ]
+  },
+  {
+    id: 6,
+    name: "Чилловый Александр",
+    image: "img/chill.png",
+    description: "Человек с большим сердцем, найден в Ленинградской области. Его отличала искренняя улыбка, которая не сходила с его лица. Александр был добродушным и очень отзывчивым человеком, всегда готовым помочь и поддержать. Он был замечен в компании друзей, и, возможно, заблудился, потеряв ориентацию во время прогулки по лесу. Несмотря на это, он был абсолютно уверен в себе и знал, что ему нужно найти путь домой. Его часто узнавала местная община за его открытость и доброжелательность.",
+    details: [
+      "Рост: 180 см",
+      "Вес: 60 кг",
+      "Особые приметы: широкая улыбка и добрые глаза.",
+      "Характер: добродушный и отзывчивый, всегда готов помочь."
+    ]
+  }
+];
+
+    const animalId = getQueryParam('id');
+    const animal = animals.find(a => a.id == animalId);
+
+    if (animal) {
+      document.getElementById('animal-detail').innerHTML = `
+        <div class="animal-detail-card">
+          <img src="${animal.image}" alt="${animal.name}">
+          <h2>${animal.name}</h2>
+          <p class="animal-description">${animal.description}</p>
+          <ul>
+            ${animal.details.map(detail => `<li>${detail}</li>`).join('')}
+          </ul>
+          <a href="index.html" class="btn">Вернуться на главную</a>
+        </div>
+      `;
+    } else {
+      document.getElementById('animal-detail').innerHTML = `
+        <p>Животное не найдено.</p>
+      `;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const loginInput = document.getElementById("loginInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const loginForm = loginInput.closest("form");
+
+  const validateInput = (input) => {
+    const regex = /^[A-Za-z0-9]+$/;
+    return regex.test(input.value);
+  };
+
+  const checkCredentials = (login, password) => {
+    const validLogin = "user";
+    const validPassword = "password123";
+    return login === validLogin && password === validPassword;
+  };
+
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    let isValid = true;
+    if (!validateInput(loginInput)) {
+      isValid = false;
+      loginInput.classList.add("is-invalid");
+    } else {
+      loginInput.classList.remove("is-invalid");
+    }
+
+    if (!validateInput(passwordInput)) {
+      isValid = false;
+      passwordInput.classList.add("is-invalid");
+    } else {
+      passwordInput.classList.remove("is-invalid");
+    }
+
+    if (!isValid) {
+      alert("Поля могут содержать только латинские буквы и цифры.");
+      return;
+    }
+
+    if (checkCredentials(loginInput.value, passwordInput.value)) {
+      window.location.href = "profile.html"; // Перенаправление на личный кабинет
+    } else {
+      alert("Неверный логин или пароль.");
+    }
+  });
+  });
+  </script>
+
+<!-- Дополнительный JavaScript; выберите один из двух! -->
+
+<!-- Вариант 1: Bootstrap в связке с Popper -->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

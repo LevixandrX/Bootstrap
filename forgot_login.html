@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <!-- Обязательные метатеги -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <title>Восстановление логина</title>
+  <style>
+    html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+  /* Модальное окно */
+  .modal-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-footer a {
+    margin: 5px 0;
+    text-decoration: none;
+  }
+
+  /* Логотип */
+  .logo-img {
+    height: 50px;
+    width: auto;
+  }
+
+  .navbar-brand span {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  /* Поле поиска */
+  form .form-control {
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: #333;
+    background-color: #f8f9fa;
+  }
+
+  form .form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  /* Кнопка поиска */
+  form .btn {
+    font-weight: bold;
+    border: 1px solid #fff;
+    background-color: #007bff;
+    color: #fff;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    margin-left: 10px;
+    display: block;
+    width: auto;
+    margin: 10px auto;
+  }
+
+  form .btn:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+
+  footer {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto;
+}
+
+  footer h5 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  footer a {
+    color: white;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: #ffc107;
+  }
+
+  footer p {
+    font-size: 1rem;
+  }
+
+  datalist option {
+    color: #333;
+    background-color: #f8f9fa;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+
+  .navbar a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .navbar a:hover {
+    color: #007bff;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-gradient shadow py-3">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img src="img/logo.png" class="logo-img me-2 rounded-3" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html" data-bs-toggle="modal" data-bs-target="#loginModal">Личный кабинет</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="registration.html">Регистрация</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="add_pet.html">Добавить объявление</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="search.html">Поиск по объявлениям</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" list="pets" placeholder="Поиск" aria-label="Search">
+            <button class="btn btn-outline-light">Поиск</button>
+            <datalist id="pets">
+              <option value="Кошка">
+              <option value="Собака">
+              <option value="Корова">
+              <option value="Крокодил">
+              <option value="Сова">
+            </datalist>
+          </form>
+        </div>
+      </div>
+    </nav>  
+  </header>
+  
+  <!-- Модальное окно -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="loginModalLabel">Вход</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="loginForm">
+                      <div class="mb-3">
+                          <label for="loginInput" class="form-label"><i class="bi bi-person"></i> Логин</label>
+                          <input type="text" class="form-control" id="loginInput" placeholder="Введите логин">
+                          <div class="invalid-feedback">Логин должен содержать только латинские буквы и цифры.</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="passwordInput" class="form-label"><i class="bi bi-lock"></i> Пароль</label>
+                          <input type="password" class="form-control" id="passwordInput" placeholder="Введите пароль">
+                          <div class="invalid-feedback">Пароль должен содержать только латинские буквы и цифры.</div>
+                        </div>                      
+                      <button type="submit" class="btn btn-primary w-100" id="loginButton">Войти</button>
+                  </form>
+              </div>            
+              <div class="modal-footer">
+                  <a href="registration.html">Регистрация</a>
+                  <a href="forgot_login.html">Забыли логин?</a>
+                  <a href="forgot_password.html">Забыли пароль?</a>
+              </div>
+          </div>
+      </div>
+  </div>
+<main class="container mt-5">
+  <h1>Восстановление логина</h1>
+  <form>
+    <div class="mb-3">
+      <label for="emailInput" class="form-label">Введите адрес электронной почты</label>
+      <input type="email" class="form-control" id="emailInput" placeholder="example@example.com" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+  </form>
+</main>
+
+<footer class="bg-primary text-white py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="mb-3">GET PET BACK</h5>
+        <p>Поиск пропавших животных и помощь в их возвращении домой.</p>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex justify-content-end">
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="text-white text-decoration-none">Главная</a></li>
+            <li><a href="about.html" class="text-white text-decoration-none">О нас</a></li>
+            <li><a href="contact.html" class="text-white text-decoration-none">Контакты</a></li>
+            <li><a href="privacy.html" class="text-white text-decoration-none">Политика конфиденциальности</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <p>&copy; 2024 GET PET BACK. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const loginInput = document.getElementById("loginInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const loginForm = loginInput.closest("form");
+
+  const validateInput = (input) => {
+    const regex = /^[A-Za-z0-9]+$/;
+    return regex.test(input.value);
+  };
+
+  const checkCredentials = (login, password) => {
+    const validLogin = "user";
+    const validPassword = "password123";
+    return login === validLogin && password === validPassword;
+  };
+
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    let isValid = true;
+    if (!validateInput(loginInput)) {
+      isValid = false;
+      loginInput.classList.add("is-invalid");
+    } else {
+      loginInput.classList.remove("is-invalid");
+    }
+
+    if (!validateInput(passwordInput)) {
+      isValid = false;
+      passwordInput.classList.add("is-invalid");
+    } else {
+      passwordInput.classList.remove("is-invalid");
+    }
+
+    if (!isValid) {
+      alert("Поля могут содержать только латинские буквы и цифры.");
+      return;
+    }
+
+    if (checkCredentials(loginInput.value, passwordInput.value)) {
+      window.location.href = "profile.html"; // Перенаправление на личный кабинет
+    } else {
+      alert("Неверный логин или пароль.");
+    }
+  });
+  });
+</script>
+
+<!-- Дополнительный JavaScript; выберите один из двух! -->
+
+<!-- Вариант 1: Bootstrap в связке с Popper -->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

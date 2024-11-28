@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <!-- Обязательные метатеги -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <title>GET PET BACK</title>
+  <style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Модальное окно */
+  .modal-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-footer a {
+    margin: 5px 0;
+    text-decoration: none;
+  }
+
+  /* Логотип */
+  .logo-img {
+    height: 50px;
+    width: auto;
+  }
+
+  .navbar-brand span {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  /* Поле поиска */
+  form .form-control {
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: #333;
+    background-color: #f8f9fa;
+  }
+
+  form .form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  /* Кнопка поиска */
+  form .btn {
+    font-weight: bold;
+    border: 1px solid #fff;
+    background-color: #007bff;
+    color: #fff;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    margin-left: 10px;
+    display: block;
+    width: auto;
+    margin: 10px auto;
+  }
+
+  form .btn:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+
+  footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  footer h5 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  footer a {
+    color: white;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: #ffc107;
+  }
+
+  footer p {
+    font-size: 1rem;
+  }
+
+  datalist option {
+    color: #333;
+    background-color: #f8f9fa;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+
+  .navbar a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .navbar a:hover {
+    color: #007bff;
+  }
+</style>
+  
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg bg-gradient shadow py-3">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo.png" class="logo-img me-2 rounded-3" alt="logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="profile.html" data-bs-toggle="modal" data-bs-target="#loginModal">Личный кабинет</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="registration.html">Регистрация</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="add_pet.html">Добавить объявление</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="search.html">Поиск по объявлениям</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" list="pets" placeholder="Поиск" aria-label="Search">
+          <button class="btn btn-outline-light">Поиск</button>
+          <datalist id="pets">
+            <option value="Кошка">
+            <option value="Собака">
+            <option value="Корова">
+            <option value="Крокодил">
+            <option value="Сова">
+          </datalist>
+        </form>
+      </div>
+    </div>
+  </nav>  
+</header>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Вход</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginInput" class="form-label"><i class="bi bi-person"></i> Логин</label>
+                        <input type="text" class="form-control" id="loginInput" placeholder="Введите логин">
+                        <div class="invalid-feedback">Логин должен содержать только латинские буквы и цифры.</div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="passwordInput" class="form-label"><i class="bi bi-lock"></i> Пароль</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Введите пароль">
+                        <div class="invalid-feedback">Пароль должен содержать только латинские буквы и цифры.</div>
+                      </div>                      
+                    <button type="submit" class="btn btn-primary w-100" id="loginButton">Войти</button>
+                </form>
+            </div>            
+            <div class="modal-footer">
+                <a href="registration.html">Регистрация</a>
+                <a href="forgot_login.html">Забыли логин?</a>
+                <a href="forgot_password.html">Забыли пароль?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main style="min-height: 70vh;">
+  <h2 class="text-center text-white bg-primary m-2">Найденные животные</h2>
+  <div id="carouselExampleIndicators" class="carousel slide m-auto bg-success bg-opacity-25 w-75 p-2 mb-4" data-bs-ride="carousel" style="min-height: 600px;">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="img/dog1.png" class="d-block w-100" alt="Собака" style="height: 600px; object-fit: cover;">
+          <div class="carousel-caption d-flex flex-column align-items-center justify-content-center bg-dark bg-opacity-50 rounded">
+            <h2 class="text-light">Найдена собака</h2>
+            <p class="text-light">Собака белая, была утеряна в Красногвардейском районе</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="img/rat1.png" class="d-block w-100" alt="Мышь" style="height: 600px; object-fit: cover;">
+          <div class="carousel-caption d-flex flex-column align-items-center justify-content-center bg-dark bg-opacity-50 rounded">
+            <h2 class="text-light">Найдена мышь</h2>
+            <p class="text-light">Мышь серая, была утеряна в Центральном районе</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="img/gorilla.png" class="d-block w-100" alt="Горилла" style="height: 600px; object-fit: cover;">
+          <div class="carousel-caption d-flex flex-column align-items-center justify-content-center bg-dark bg-opacity-50 rounded">
+            <h2 class="text-light">Найдена горилла</h2>
+            <p class="text-light">Горилла, была утеряна в Красногвардейском районе</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Предыдущий</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Следующий</span>
+      </button>
+    </div>        
+
+    <h2 class="text-center text-white bg-primary m-3">Карточки найденных животных</h2>
+    <div class="container mt-4 mb-4">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+      <!-- Карточка 1 -->
+      <div class="col" id="animal-1">
+        <div class="card shadow-lg rounded h-100">
+          <img src="img/dog1.png" class="card-img-top" alt="Собака" style="height: 200px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Найдена собака</h5>
+            <p class="card-text">Собака белая с черными пятнами. Была утеряна в Красногвардейском районе около парка.</p>
+            <ul>
+              <li>Рост: 50 см</li>
+              <li>Вес: 15 кг</li>
+              <li>Особые приметы: зеленый ошейник</li>
+            </ul>
+            <a href="animal-detail.html?id=1" class="btn btn-primary mt-auto">Подробнее</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка 2 -->
+      <div class="col" id="animal-2">
+        <div class="card shadow-lg rounded h-100">
+          <img src="img/rat1.png" class="card-img-top" alt="Мышь" style="height: 200px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Найдена мышь</h5>
+            <p class="card-text">Маленькая серая мышь. Найдена в Центральном районе около магазина.</p>
+            <ul>
+              <li>Рост: 8 см</li>
+              <li>Вес: 200 г</li>
+              <li>Особые приметы: длинный хвост</li>
+            </ul>
+            <a href="animal-detail.html?id=2" class="btn btn-primary mt-auto">Подробнее</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка 3 -->
+      <div class="col" id="animal-3">
+        <div class="card shadow-lg rounded h-100">
+          <img src="img/gorilla.png" class="card-img-top" alt="Горилла" style="height: 200px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Найдена горилла</h5>
+            <p class="card-text">Горилла коричневая, найдена в Красногвардейском районе недалеко от зоопарка.</p>
+            <ul>
+              <li>Рост: 180 см</li>
+              <li>Вес: 200 кг</li>
+              <li>Особые приметы: небольшой шрам на лапе</li>
+            </ul>
+            <a href="animal-detail.html?id=3" class="btn btn-primary mt-auto">Подробнее</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка 4 -->
+      <div class="col" id="animal-4">
+        <div class="card shadow-lg rounded h-100">
+          <img src="img/cat1.png" class="card-img-top" alt="Кот" style="height: 200px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Найден кот</h5>
+            <p class="card-text">Серый кот с белой грудкой. Найден в Московском районе у жилого дома.</p>
+            <ul>
+              <li>Рост: 30 см</li>
+              <li>Вес: 4 кг</li>
+              <li>Особые приметы: голубые глаза</li>
+            </ul>
+            <a href="animal-detail.html?id=4" class="btn btn-primary mt-auto">Подробнее</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка 5 -->
+      <div class="col" id="animal-5">
+        <div class="card shadow-lg rounded h-100">
+          <img src="img/bird1.png" class="card-img-top" alt="Птица" style="height: 200px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Найдена птица</h5>
+            <p class="card-text">Птица с ярким оперением. Найдена в Приморском районе возле школы.</p>
+            <ul>
+              <li>Рост: 20 см</li>
+              <li>Вес: 1 кг</li>
+              <li>Особые приметы: красный гребень</li>
+            </ul>
+            <a href="animal-detail.html?id=5" class="btn btn-primary mt-auto">Подробнее</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка 6 -->
+      <div class="col" id="animal-6">
+        <div class="card shadow-lg rounded h-100">
+          <img src="img/chill.png" class="card-img-top" alt="Птица" style="height: 200px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Найден чилловый Александр</h5>
+            <p class="card-text">Человек с большим сердцем. Найден в Лен. области.</p>
+            <ul>
+              <li>Рост: 180 см</li>
+              <li>Вес: 60 кг</li>
+              <li>Особые приметы: широкая улыбка</li>
+            </ul>
+            <a href="animal-detail.html?id=6" class="btn btn-primary mt-auto">Подробнее</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-center text-white bg-primary m-2">Подписка на новости</h2>
+    <form class="w-50 m-auto p-3 mb-4" style="min-width: 300px;">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Введите адрес электронной почты</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">Мы никогда не делимся Вашими e-mail ни с кем.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Подписаться</button>
+    </form>
+</main>
+
+<footer class="bg-primary text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="mb-3">GET PET BACK</h5>
+          <p>Поиск пропавших животных и помощь в их возвращении домой.</p>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex justify-content-end">
+            <ul class="list-unstyled">
+              <li><a href="index.html" class="text-white text-decoration-none">Главная</a></li>
+              <li><a href="about.html" class="text-white text-decoration-none">О нас</a></li>
+              <li><a href="contact.html" class="text-white text-decoration-none">Контакты</a></li>
+              <li><a href="privacy.html" class="text-white text-decoration-none">Политика конфиденциальности</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p>&copy; 2024 GET PET BACK. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const loginInput = document.getElementById("loginInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const loginForm = loginInput.closest("form");
+
+  const validateInput = (input) => {
+    const regex = /^[A-Za-z0-9]+$/;
+    return regex.test(input.value);
+  };
+
+  const checkCredentials = (login, password) => {
+    const validLogin = "user";
+    const validPassword = "password123";
+    return login === validLogin && password === validPassword;
+  };
+
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    let isValid = true;
+    if (!validateInput(loginInput)) {
+      isValid = false;
+      loginInput.classList.add("is-invalid");
+    } else {
+      loginInput.classList.remove("is-invalid");
+    }
+
+    if (!validateInput(passwordInput)) {
+      isValid = false;
+      passwordInput.classList.add("is-invalid");
+    } else {
+      passwordInput.classList.remove("is-invalid");
+    }
+
+    if (!isValid) {
+      alert("Поля могут содержать только латинские буквы и цифры.");
+      return;
+    }
+
+    if (checkCredentials(loginInput.value, passwordInput.value)) {
+      window.location.href = "profile.html"; // Перенаправление на личный кабинет
+    } else {
+      alert("Неверный логин или пароль.");
+    }
+  });
+  });
+</script>
+
+<!-- Дополнительный JavaScript; выберите один из двух! -->
+
+<!-- Вариант 1: Bootstrap в связке с Popper -->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
