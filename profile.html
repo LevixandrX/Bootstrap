@@ -145,7 +145,47 @@
       text-decoration: underline;
     }
 
-    
+    .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+    .card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.card-title a:hover {
+  text-decoration: underline;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Расстояние между кнопками */
+  align-items: center; /* Выравнивание по центру */
+}
   </style>
 </head>
 <body>
@@ -191,34 +231,57 @@
   </header>
 
 <main class="container mt-5">
-  <h2>Личный кабинет</h2>
+  <h2 class="d-flex align-items-center">
+    <i class="bi bi-person-circle me-2"></i> Личный кабинет
+  </h2>  
 
   <!-- Информация о пользователе -->
-  <div class="profile-info">
-    <h3>Информация о пользователе</h3>
-    <p><strong>Имя:</strong> Иван Иванов</p>
-    <p><strong>Электронная почта:</strong> ivan@example.com</p>
-    <p><strong>Номер телефона:</strong> +7 123 456 7890</p>
-    <button class="btn btn-primary">Редактировать профиль</button>
+  <div class="profile-info d-flex align-items-center">
+    <img src="img/avatar.jpg" alt="Аватар пользователя" class="avatar me-4">
+    <div>
+      <h3>Информация о пользователе</h3>
+      <p><strong>Имя:</strong> Иван Иванов</p>
+      <p><strong>Электронная почта:</strong> ivan@example.com</p>
+      <p><strong>Номер телефона:</strong> +7 123 456 7890</p>
+      <div class="button-group">
+        <button class="btn btn-primary">Редактировать профиль</button>
+        <button class="btn btn-danger" onclick="logout()">Выйти</button>
+      </div>
+    </div>    
   </div>
-
+  
   <!-- Список объявлений -->
-  <div class="ads-list">
+  <div class="ads-list row">
     <h3>Мои объявления</h3>
-    <div class="ad-item">
-      <h4><a href="ad_details.html">Пропала кошка</a></h4>
-      <p>Белая кошка с красным ошейником, возраст 3 года.</p>
+    <div class="col-md-4">
+      <div class="ad-item card shadow-sm">
+        <img src="img/cat1.png" class="card-img-top" alt="Пропала кошка">
+        <div class="card-body">
+          <h4 class="card-title"><a href="ad_details.html">Пропала кошка</a></h4>
+          <p class="card-text">Белая кошка с красным ошейником, возраст 3 года.</p>
+        </div>
+      </div>
     </div>
-    <div class="ad-item">
-      <h4><a href="ad_details.html">Продажа собаки</a></h4>
-      <p>Маленький щенок, 3 месяца, порода лабрадор.</p>
+    <div class="col-md-4">
+      <div class="ad-item card shadow-sm">
+        <img src="img/dog1.png" class="card-img-top" alt="Продажа собаки">
+        <div class="card-body">
+          <h4 class="card-title"><a href="ad_details.html">Продажа собаки</a></h4>
+          <p class="card-text">Маленький щенок, 3 месяца, порода лабрадор.</p>
+        </div>
+      </div>
     </div>
-    <div class="ad-item">
-      <h4><a href="ad_details.html">Пропала собака</a></h4>
-      <p>Большая собака черного цвета, ответьте, если найдете.</p>
+    <div class="col-md-4">
+      <div class="ad-item card shadow-sm">
+        <img src="img/dog2.png" class="card-img-top" alt="Пропала собака">
+        <div class="card-body">
+          <h4 class="card-title"><a href="ad_details.html">Пропала собака</a></h4>
+          <p class="card-text">Большая собака черного цвета, ответьте, если найдете.</p>
+        </div>
+      </div>
     </div>
   </div>
-</main>
+  </main>
 
 <footer class="bg-primary text-white py-4">
   <div class="container">
@@ -245,39 +308,12 @@
 </footer>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const loginInput = document.getElementById("loginInput");
-      const passwordInput = document.getElementById("passwordInput");
-      const loginForm = loginInput.closest("form");
-  
-      const validateInput = (input) => {
-        const regex = /^[A-Za-z0-9]+$/;
-        return regex.test(input.value);
-      };
-  
-      loginForm.addEventListener("submit", (event) => {
-        let isValid = true;
-        if (!validateInput(loginInput)) {
-          isValid = false;
-          loginInput.classList.add("is-invalid");
-        } else {
-          loginInput.classList.remove("is-invalid");
-        }
-  
-        if (!validateInput(passwordInput)) {
-          isValid = false;
-          passwordInput.classList.add("is-invalid");
-        } else {
-          passwordInput.classList.remove("is-invalid");
-        }
-  
-        if (!isValid) {
-          event.preventDefault();
-          alert("Поля могут содержать только латинские буквы и цифры.");
-        }
-      });
-    });
-  </script>
+  function logout() {
+    localStorage.clear();
+    window.location.href = "index.html"; 
+  }
+</script>
+
 
 <!-- Дополнительный JavaScript; выберите один из двух! -->
 
